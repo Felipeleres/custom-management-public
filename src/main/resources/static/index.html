@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Bender Advocacia </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/design.css" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-text">BENDER DIAS ADVOCACIA</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-page="dashboard">
+        <span class="nav-icon">▣</span>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-btn" data-page="clientes">
+        <span class="nav-icon">◈</span>
+        <span>Clientes</span>
+      </button>
+      <button class="nav-btn" data-page="processos">
+        <span class="nav-icon">◉</span>
+        <span>Processos</span>
+      </button>
+      <button class="nav-btn" data-page="financeiro">
+        <span class="nav-icon">◎</span>
+        <span>Financeiro</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span>Sistema de Gestão Jurídica</span>
+      <button class="btn-logout" onclick="logout()" title="Sair">⏻ Sair</button>
+    </div>
+  </aside>
+
+  <!-- ════════════════════════════════════════
+       CONTEÚDO PRINCIPAL — cada seção fica
+       sempre no DOM, visibilidade via CSS
+  ════════════════════════════════════════ -->
+  <main class="content">
+
+    <!-- ── DASHBOARD ── -->
+    <section id="page-dashboard" class="page active">
+      <div class="page-header">
+        <h2 class="page-title">Dashboard</h2>
+        <p class="page-subtitle">Visão geral do escritório</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">Clientes</span>
+          <strong class="stat-value" id="dash-clientes">—</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Processos</span>
+          <strong class="stat-value" id="dash-processos">—</strong>
+        </div>
+        <div class="stat-card accent">
+          <span class="stat-label">Total Pago</span>
+          <strong class="stat-value" id="dash-pago">—</strong>
+        </div>
+        <div class="stat-card warn">
+          <span class="stat-label">Em Aberto</span>
+          <strong class="stat-value" id="dash-aberto">—</strong>
+        </div>
+        <div class="stat-card danger">
+          <span class="stat-label">Em Atraso</span>
+          <strong class="stat-value" id="dash-atraso">—</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CLIENTES ── -->
+    <section id="page-clientes" class="page">
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Clientes</h2>
+          <p class="page-subtitle">Gerencie a cartela de clientes</p>
+        </div>
+        <button class="btn btn-primary" id="btn-novo-cliente">+ Novo Cliente</button>
+      </div>
+
+      <div class="card">
+        <input
+          type="text"
+          id="nomeClienteBusca"
+          class="search-input"
+          placeholder="🔍  Buscar por nome, CPF, e-mail ou telefone…"
+        />
+        <table id="tabelaClientes">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>E-mail</th>
+              <th>Telefone</th>
+              <th class="col-actions">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaClientes-body"></tbody>
+        </table>
+        <p class="empty-state" id="clientes-empty" style="display:none">Nenhum cliente encontrado.</p>
+      </div>
+    </section>
+
+    <!-- ── PROCESSOS ── -->
+    <section id="page-processos" class="page">
+      <div class="page-header">
+        <div>
+          <h2 class="page-title">Processos</h2>
+          <p class="page-subtitle">Acompanhe todos os processos ativos</p>
+        </div>
+        <button class="btn btn-primary" id="btn-novo-processo">+ Novo Processo</button>
+      </div>
+
+      <div class="card">
+        <input
+          type="text"
+          id="buscaProcessoInput"
+          class="search-input"
+          placeholder="🔍  Buscar por número, descrição ou cliente…"
+        />
+        <table id="tabelaProcessos">
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Descrição</th>
+              <th>Data</th>
+              <th>Situação</th>
+              <th>Cliente</th>
+              <th class="col-actions">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaProcessos-body"></tbody>
+        </table>
+        <p class="empty-state" id="processos-empty" style="display:none">Nenhum processo encontrado.</p>
+      </div>
+    </section>
+
+    <!-- ── FINANCEIRO ── -->
+    <section id="page-financeiro" class="page">
+      <div class="page-header">
+        <h2 class="page-title">Financeiro</h2>
+        <p class="page-subtitle">Controle de pagamentos e parcelas</p>
+      </div>
+
+      <!-- Abas Financeiro -->
+      <div class="tab-bar">
+        <button class="tab-btn active" id="tab-pagamentos">Pagamentos</button>
+        <button class="tab-btn" id="tab-parcelas">Parcelas</button>
+      </div>
+
+      <!-- Painel: Pagamentos -->
+      <div id="painel-pagamentos" class="tab-panel active">
+        <div class="finance-stats">
+          <div class="stat-card accent">
+            <span class="stat-label">Total Pago</span>
+            <strong class="stat-value" id="totalPago">R$ 0,00</strong>
+          </div>
+          <div class="stat-card warn">
+            <span class="stat-label">Em Aberto</span>
+            <strong class="stat-value" id="totalEmAberto">R$ 0,00</strong>
+          </div>
+          <div class="stat-card danger">
+            <span class="stat-label">Em Atraso</span>
+            <strong class="stat-value" id="totalEmAtraso">R$ 0,00</strong>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-toolbar">
+            <input
+              type="text"
+              id="buscaPagamentoInput"
+              class="search-input"
+              placeholder="🔍  Buscar por status, processo ou cliente…"
+            />
+            <button class="btn btn-primary" id="btn-novo-pagamento">+ Novo Pagamento</button>
+          </div>
+
+          <table id="tabelaPagamentos">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Nº Processo</th>
+                <th>Descrição</th>
+                <th>Data</th>
+                <th>Cliente</th>
+                <th>Valor</th>
+                <th class="col-actions">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaPagamentos-body"></tbody>
+          </table>
+          <p class="empty-state" id="pagamentos-empty" style="display:none">Nenhum pagamento encontrado.</p>
+        </div>
+      </div>
+
+      <!-- Painel: Parcelas -->
+      <div id="painel-parcelas" class="tab-panel">
+        <div class="card">
+          <input
+            type="text"
+            id="buscaParcelaInput"
+            class="search-input"
+            placeholder="🔍  Buscar por status, processo ou cliente…"
+          />
+          <table id="tabelaParcelas">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Processo</th>
+                <th>Cliente</th>
+                <th>Data</th>
+                <th>Valor</th>
+                <th class="col-actions">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaParcelas-body"></tbody>
+          </table>
+          <p class="empty-state" id="parcelas-empty" style="display:none">Nenhuma parcela encontrada.</p>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- /content -->
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       MODAIS  — sempre no DOM, nunca recriados dinamicamente
+  ═══════════════════════════════════════════════════════ -->
+
+  <!-- Modal: Cliente -->
+  <div id="modalCliente" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalCliente-title">
+    <div class="modal-card">
+      <h3 class="modal-title" id="modalCliente-title">Novo Cliente</h3>
+      <input type="hidden" id="clienteId" />
+
+      <div class="form-grid">
+        <div class="field full">
+          <label for="clienteNome">Nome completo <span class="required">*</span></label>
+          <input id="clienteNome" type="text" placeholder="Ex.: Maria da Silva" />
+        </div>
+        <div class="field">
+          <label for="clienteCPF">CPF</label>
+          <input id="clienteCPF" type="text" placeholder="000.000.000-00" maxlength="14" />
+        </div>
+        <div class="field">
+          <label for="clienteTelefone">Telefone</label>
+          <input id="clienteTelefone" type="text" placeholder="(00) 00000-0000" maxlength="15" />
+        </div>
+        <div class="field full">
+          <label for="clienteEmail">E-mail</label>
+          <input id="clienteEmail" type="email" placeholder="email@exemplo.com" />
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="btn-cancelar-cliente">Cancelar</button>
+        <button class="btn btn-primary" id="btn-salvar-cliente">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Processo -->
+  <div id="modalProcesso" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalProcesso-title">
+    <div class="modal-card">
+      <h3 class="modal-title" id="modalProcesso-title">Novo Processo</h3>
+      <input type="hidden" id="processoId" />
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="procNumero">Número <span class="required">*</span></label>
+          <input id="procNumero" type="text" placeholder="Ex.: 0001234-56.2024" />
+        </div>
+        <div class="field">
+          <label for="procData">Data</label>
+          <input id="procData" type="date" />
+        </div>
+        <div class="field full">
+          <label for="procClienteId">Cliente <span class="required">*</span></label>
+          <select id="procClienteId">
+            <option value="">Selecione um cliente…</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="procDescricao">Descrição</label>
+          <input id="procDescricao" type="text" placeholder="Breve descrição do processo" />
+        </div>
+        <div class="field full">
+          <label for="procSituacao">Situação</label>
+          <input id="procSituacao" type="text" placeholder="Ex.: Em andamento" />
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="btn-cancelar-processo">Cancelar</button>
+        <button class="btn btn-primary" id="btn-salvar-processo">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Pagamento (passo 1) -->
+  <div id="modalPagamento" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalPagamento-title">
+    <div class="modal-card">
+      <h3 class="modal-title" id="modalPagamento-title">Novo Pagamento</h3>
+      <input type="hidden" id="pagamentoId" />
+
+      <div class="form-grid">
+        <div class="field full">
+          <label for="pagProcessoInput">Processo <span class="required">*</span></label>
+          <input id="pagProcessoInput" type="text" list="pagProcessoList" placeholder="Digite o nome do cliente ou número…" autocomplete="off" />
+          <datalist id="pagProcessoList"></datalist>
+          <input type="hidden" id="pagProcesso" />
+        </div>
+        <div class="field">
+          <label for="pagValorTotal">Valor total <span class="required">*</span></label>
+          <input id="pagValorTotal" type="number" min="0" step="0.01" placeholder="0,00" />
+        </div>
+        <div class="field">
+          <label for="pagQtdParcelas">Qtd. parcelas <span class="required">*</span></label>
+          <input id="pagQtdParcelas" type="number" min="1" placeholder="1" />
+        </div>
+        <div class="field full">
+          <label for="pagStatus">Status</label>
+          <select id="pagStatus">
+            <option value="AGUARDANDO_PAGAMENTO">Aguardando Pagamento</option>
+            <option value="PAGO">Pago</option>
+            <option value="EM_ATRASO">Em Atraso</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="btn-cancelar-pagamento">Cancelar</button>
+        <button class="btn btn-primary" id="btn-avancar-pagamento">Avançar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Parcelas do Pagamento (passo 2) -->
+  <div id="modalParcelas" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalParcelas-title">
+    <div class="modal-card modal-card--wide">
+      <h3 class="modal-title" id="modalParcelas-title">Definir Parcelas</h3>
+      <p class="modal-subtitle">Informe o valor e a data de cada parcela.</p>
+      <div id="parcelasContainer" class="parcelas-grid"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="btn-voltar-pagamento">← Voltar</button>
+        <button class="btn btn-primary" id="btn-salvar-pagamento">Salvar Pagamento</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Editar Parcela -->
+  <div id="modalParcela" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalParcela-title">
+    <div class="modal-card">
+      <h3 class="modal-title" id="modalParcela-title">Editar Parcela</h3>
+      <input type="hidden" id="parcelaId" />
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="parcelaValor">Valor</label>
+          <input id="parcelaValor" type="number" min="0" step="0.01" placeholder="0,00" />
+        </div>
+        <div class="field">
+          <label for="parcelaData">Data</label>
+          <input id="parcelaData" type="date" />
+        </div>
+        <div class="field full">
+          <label for="parcelaStatus">Status</label>
+          <select id="parcelaStatus">
+            <option value="AGUARDANDO_PAGAMENTO">Aguardando Pagamento</option>
+            <option value="PAGO">Pago</option>
+            <option value="EM_ATRASO">Em Atraso</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="btn-cancelar-parcela">Cancelar</button>
+        <button class="btn btn-primary" id="btn-salvar-parcela">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de feedback -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

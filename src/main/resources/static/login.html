@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bender Dias Advocacia — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/design.css" />
+</head>
+<body class="login-body">
+
+  <div class="login-wrapper">
+    <div class="login-card">
+
+      <!-- Brand -->
+      <div class="login-brand">
+        <span class="brand-text">BENDER DIAS ADVOCACIA</span>
+      </div>
+
+      <h1 class="login-title">Bem-vinda</h1>
+      <p class="login-subtitle">Acesse o sistema de gestão jurídica</p>
+
+      <!-- Formulário -->
+      <form id="loginForm" novalidate>
+
+        <div class="login-field" id="fieldUsername">
+          <label for="loginUsername">E-mail</label>
+          <input
+            type="email"
+            id="loginUsername"
+            placeholder="seu@email.com"
+            autocomplete="username"
+          />
+          <p class="login-field-error" id="errorUsername"></p>
+        </div>
+
+        <div class="login-field" id="fieldPassword">
+          <label for="loginPassword">Senha</label>
+          <div class="login-input-wrap">
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            />
+            <button type="button" id="togglePw" class="login-toggle-pw" aria-label="Mostrar senha">
+              <svg id="iconEye" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg id="iconEyeOff" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          <p class="login-field-error" id="errorPassword"></p>
+        </div>
+
+        <div class="login-alert" id="loginAlert" role="alert" aria-live="polite"></div>
+
+        <button type="submit" class="btn btn-primary login-btn" id="btnLogin">
+          <span class="login-btn-label">Entrar</span>
+          <span class="login-btn-spinner" aria-hidden="true"></span>
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
