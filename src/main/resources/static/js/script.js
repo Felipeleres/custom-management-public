@@ -13,7 +13,7 @@
 const AUTH = {
   tokenUrl:         '/oauth2/token',
   // Credenciais apenas para demo em Base64 (cliente_id:cliente_secret)
-  basicCredentials: 'YXBlbmFzX3VtX3Rlc3RlOnNlbmhhX3BhcmFfZGVtbw==',
+  basicCredentials: 'Basic YXBlbmFzX3VtX3Rlc3RlOnNlbmhhX3BhcmFfZGVtbw==',
   loginPage:        'login.html',
   dashboardPage:    'index.html',
 };
