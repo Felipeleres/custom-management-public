@@ -1,39 +1,48 @@
-# Sistema de Gestão para Advogada Autônoma
+# Sistema de Gestão para Advogados Autônomos
 
-Sistema web desenvolvido para substituir o uso de planilhas no controle da rotina jurídica, oferecendo uma solução prática e de baixo custo para gerenciamento de clientes, processos e financeiro.
+Sistema web desenvolvido sob medida para uma advogada autônoma. A solução originou-se do desejo de melhorar a rotina jurídica com um sistema que substituísse a necessidade de planilhas para controlar clientes, processos, pagamentos e parcelas.
 
-## Motivação
-
-Desenvolvido sob medida para uma advogada autônoma, com o objetivo de digitalizar e centralizar informações que antes eram controladas manualmente em planilhas, sem depender de sistemas robustos de gestão de escritório — que costumam ter custos elevados.
+Sistemas jurídicos prontos costumam ter custos recorrentes e funcionalidades excessivas para profissionais autônomos. Por isso, o projeto foi desenvolvido com foco em simplicidade, baixo custo, usabilidade e aderência ao fluxo real da usuária.
 
 ## Funcionalidades
 
-- Cadastro, busca, atualização e exclusão de clientes, processos e registros financeiros (CRUD)
-- Gerenciamento de pagamentos e parcelas
-- Acompanhamento de valores pagos e pendentes
+- Cadastro e gerenciamento de clientes
+- Cadastro e acompanhamento de processos
+- Registro de informações financeiras vinculadas aos processos
+- Controle de pagamentos e parcelas
+- Acompanhamento de valores pagos, pendentes e totais
 - Relacionamento entre clientes, processos e movimentações financeiras
-- Acompanhamento de status de processos
-
-## Boas Práticas Aplicadas
-
-- Arquitetura em camadas (controller, service, repository, DTO e entities)
-- Tratamento de exceções personalizado com respostas claras da API
-- API REST para comunicação entre as camadas
-- Código organizado para manutenção e escalabilidade
+- Consulta e busca de registros
+- Atualização de dados conforme andamento dos casos
+- Exclusão controlada de registros
+- Acompanhamento de status dos processos
 
 ## Tecnologias Utilizadas
 
 - Java 17
 - Spring Boot
 - Spring Data JPA / Hibernate
-- Spring Security + OAuth2 / JWT
-- Banco de dados Postgresql
-- Frontend estático (HTML, CSS e JS)
+- Spring Security
+- OAuth2 / JWT
+- PostgreSQL
+- HTML
+- CSS
+- JavaScript
+- Maven
+- Railway
+- Supabase
+- NSSM
 
 ## Implantação
 
-A aplicação está em uso real, implantada localmente na máquina da cliente. O serviço Spring roda via **NSSM** (Non-Sucking Service Manager) e o banco de dados opera localmente — solução escolhida para eliminar custos de infraestrutura em nuvem.
+A aplicação principal está em uso real pela cliente, implantada localmente em sua própria máquina. Essa abordagem foi escolhida para eliminar custos recorrentes com infraestrutura em nuvem.
 
-Em produção. Novas funcionalidades e melhorias são implementadas regularmente.
+Foi publicada uma versão **demo online** no **Railway**, utilizando banco de dados **Supabase**, com a finalidade de apresentar o funcionamento do sistema e permitir testes demonstrativos.
 
+## Status do Projeto
 
+O sistema está sendo utilizado pela usuária final em sua rotina.
+
+## Autor
+
+Desenvolvido por Felipe Leres.
